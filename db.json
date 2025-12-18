@@ -1,0 +1,17 @@
+{
+  "pokemons": [
+    {
+      "id": 1,
+      "name": "bulbasaur",
+      "price": 150,
+      "stock": 10
+    },
+    {
+      "id": 2,
+      "name": "ivysaur",
+      "price": 250,
+      "stock": 5
+    }
+  ],
+  "sales": []
+}
