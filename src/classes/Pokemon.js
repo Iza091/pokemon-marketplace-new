@@ -2,7 +2,6 @@ export class Pokemon {
   constructor(data) {
     this.id = data.id;
     this.name = data.name;
-    // Soporta tanto 'image' como 'sprites'
     this.image =
       data.image ||
       data.sprites?.other?.["official-artwork"]?.front_default ||
