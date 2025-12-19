@@ -1,4 +1,3 @@
-// src/hooks/usePokemonFilters.js
 import { useEffect, useMemo, useState } from "react";
 import { fetchPokemonTypes } from "../services/pokemonService";
 

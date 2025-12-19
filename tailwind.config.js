@@ -23,6 +23,15 @@ export default {
         "pokemon-fairy": "#EE99AC",
         "pokemon-normal": "#A8A878",
       },
+      keyframes: {
+        slideUp: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-3px)" },
+        },
+      },
+      animation: {
+        slideUp: "slideUp 0.3s ease",
+      },
     },
   },
   plugins: [],

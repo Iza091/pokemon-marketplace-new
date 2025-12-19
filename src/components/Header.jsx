@@ -1,9 +1,9 @@
-import { Search, User } from "lucide-react";
+import { Search, ShoppingBag, User } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 
 const Header = ({ search = "", onSearchChange = () => {} }) => {
-  const { itemCount } = useCart();
+  const { itemCount, total } = useCart();
   const [searchQuery, setSearchQuery] = useState(search);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
@@ -29,7 +29,7 @@ const Header = ({ search = "", onSearchChange = () => {} }) => {
                 Pokémon Marketplace
               </h1>
               <p className="text-sm opacity-90 hidden md:block">
-                Atrapa todos los Pokémon
+                ¡Atrapalos a todos!
               </p>
             </div>
           </div>
@@ -57,22 +57,47 @@ const Header = ({ search = "", onSearchChange = () => {} }) => {
           </form>
 
           <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-normal">
-            <div className="relative">
-              <button
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-xl hover:bg-white/30 transition-all active:scale-95"
-              >
-                <User size={20} />
-                <div className="text-left">
-                  <p className="text-xs opacity-90 md:hidden">Entrenador</p>
-                  <p className="font-bold text-sm md:text-base md:hidden">
-                    Ash Ketchum
-                  </p>
-                  <span className="hidden md:inline ml-2 text-sm md:text-base">
-                    Ash Ketchum
-                  </span>
-                </div>
-              </button>
+            <div className="relative flex items-center gap-3">
+              <div>
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-xl hover:bg-white/30 transition-all active:scale-95"
+                >
+                  <User size={20} />
+                  <div className="text-left">
+                    <p className="text-xs opacity-90 md:hidden">Entrenador</p>
+                    <p className="font-bold text-sm md:text-base md:hidden">
+                      Ash Ketchum
+                    </p>
+                    <span className="hidden md:inline ml-2 text-sm md:text-base">
+                      Ash Ketchum
+                    </span>
+                  </div>
+                </button>
+              </div>
+
+              <div>
+                <button
+                  onClick={() =>
+                    window.dispatchEvent(
+                      new CustomEvent("openCart", { detail: { open: true } })
+                    )
+                  }
+                  className="relative flex items-center gap-2 bg-white/20 px-3 py-2 rounded-xl hover:bg-white/30 transition-all active:scale-95"
+                  aria-label="Abrir carrito"
+                >
+                  <div className="relative">
+                    <ShoppingBag size={20} />
+                    {itemCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                        {itemCount}
+                      </span>
+                    )}
+                  </div>
+
+                  <span className="font-semibold">${total.toFixed(2)}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

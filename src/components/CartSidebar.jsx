@@ -1,3 +1,4 @@
+import { ShoppingBag, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import Checkout from "./Checkout";
@@ -11,13 +12,23 @@ const CartSidebar = () => {
 
   useEffect(() => {
     const handler = (e) => {
-      const open = !!e.detail && !!e.detail.open;
+      const open = !!e?.detail && !!e.detail.open;
       setIsMobileFiltersOpen(open);
       if (open) setIsOpen(false);
     };
 
     window.addEventListener("mobileFiltersVisibility", handler);
-    return () => window.removeEventListener("mobileFiltersVisibility", handler);
+
+    const openHandler = (e) => {
+      const open = e?.detail?.open ?? true;
+      setIsOpen(!!open);
+    };
+    window.addEventListener("openCart", openHandler);
+
+    return () => {
+      window.removeEventListener("mobileFiltersVisibility", handler);
+      window.removeEventListener("openCart", openHandler);
+    };
   }, []);
 
   if (showCheckout) {
@@ -26,23 +37,6 @@ const CartSidebar = () => {
 
   return (
     <>
-      {!isMobileFiltersOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed right-4 bottom-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 z-50 flex items-center gap-2"
-        >
-          <span className="relative">
-            🛒
-            {itemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {itemCount}
-              </span>
-            )}
-          </span>
-          <span className="font-bold">${total.toFixed(2)}</span>
-        </button>
-      )}
-
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-50"
@@ -54,20 +48,22 @@ const CartSidebar = () => {
           >
             <div className="h-full flex flex-col">
               <div className="p-4 border-b flex justify-between items-center">
-                <h2 className="text-xl font-bold">Tu Carrito</h2>
+                <h2 className="text-xl font-bold">Caja </h2>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="text-gray-500 hover:text-gray-700"
                 >
-                  ✕
+                  <X size={24} />
                 </button>
               </div>
 
               <div className="flex-1 overflow-y-auto p-4">
                 {items.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
-                    <div className="text-6xl mb-4">🛒</div>
-                    <p>Tu carrito está vacío</p>
+                    <div className="flex justify-center mb-4">
+                      <ShoppingBag size={64} className="text-gray-300" />
+                    </div>
+                    <p>Tu caja está vacía</p>
                   </div>
                 ) : (
                   <div className="space-y-4">

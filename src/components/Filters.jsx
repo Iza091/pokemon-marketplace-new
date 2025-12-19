@@ -16,7 +16,7 @@ const PRICE_CATEGORIES = [
     name: "Pokébola",
     sprite: "poke",
     label: "Económico",
-    description: "Pokémones Comunes",
+    description: "Pokémones comunes",
     min: 0,
     max: 30,
     color: "bg-red-100",
@@ -30,7 +30,7 @@ const PRICE_CATEGORIES = [
     name: "Superbola",
     sprite: "great",
     label: "Exclusivo",
-    description: "Pokémones Poco Comunes",
+    description: "Pokémones exclusivos",
     min: 31,
     max: 70,
     color: "bg-blue-100",
@@ -44,7 +44,7 @@ const PRICE_CATEGORIES = [
     name: "Ultrabola",
     sprite: "ultra",
     label: "Legendario",
-    description: "Pokémones Raros",
+    description: "Pokémones legendarios",
     min: 71,
     max: 151,
     color: "bg-yellow-100",
@@ -55,7 +55,7 @@ const PRICE_CATEGORIES = [
   },
 ];
 
-const PokeballSprite = ({ type, className = "w-6 h-6" }) => {
+export const PokeballSprite = ({ type, className = "w-6 h-6" }) => {
   const getSpriteUrl = (spriteType) => {
     return `https://raw.githubusercontent.com/msikma/pokesprite/master/items/ball/${spriteType}.png`;
   };
@@ -95,6 +95,24 @@ const Filters = ({
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isTypesDropdownOpen, setIsTypesDropdownOpen] = useState(false);
   const typesDropdownRef = useRef(null);
+
+  useEffect(() => {
+    if (isMobileFiltersOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "auto";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    };
+  }, [isMobileFiltersOpen]);
 
   const openMobileFilters = () => {
     setIsMobileFiltersOpen(true);
@@ -234,7 +252,7 @@ const Filters = ({
                     <div className="flex items-center gap-2 mb-2">
                       <PokeballSprite
                         type={category.sprite}
-                        className="w-5 h-5"
+                        className="w-10 h-10"
                       />
                       <div className="font-bold text-xs">{category.label}</div>
                     </div>
@@ -421,7 +439,7 @@ const Filters = ({
                               {formatPrice(category.max)}
                             </div>
                             <div className="text-xs font-normal mt-1">
-                              CRÉDITOS
+                              POKEDOLARES
                             </div>
                           </div>
                         </div>

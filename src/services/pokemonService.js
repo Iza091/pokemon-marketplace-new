@@ -7,7 +7,6 @@ export const fetchPokemons = async (limit = 151) => {
     const pokeRes = await fetch(`${API_URL}/pokemon?limit=${limit}`);
     const pokeData = await pokeRes.json();
 
-    // Datos locales simulados (precios y stock)
     const localData = Array.from({ length: limit }, (_, i) => ({
       id: i + 1,
       price: 10 + Math.floor(Math.random() * 90),
@@ -25,10 +24,14 @@ export const fetchPokemons = async (limit = 151) => {
         return new Pokemon({
           id: id,
           name: details.name,
-          image: details.sprites.other["official-artwork"].front_default,
+          image:
+            details.sprites.versions?.["generation-v"]?.["black-white"]
+              ?.animated?.front_default || details.sprites.front_default,
           types: details.types.map((t) => t.type.name),
           price: localInfo ? localInfo.price : 100,
           stock: localInfo ? localInfo.stock : 0,
+          height: details.height,
+          weight: details.weight,
         });
       })
     );
@@ -41,7 +44,6 @@ export const fetchPokemons = async (limit = 151) => {
 };
 
 export const updatePokemonStock = async (pokemonId, newStock) => {
-  // Stock actualizado localmente en CartContext
   console.log(`Stock actualizado para Pokémon ${pokemonId}: ${newStock}`);
 };
 

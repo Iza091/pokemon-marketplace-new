@@ -43,7 +43,9 @@ Bloques reutilizables de la interfaz:
 - **`PokemonCard.jsx`**: Tarjeta individual que muestra un Pokémon
 - **`Filters.jsx`**: Panel de filtros (búsqueda, tipo, precio, etc.)
 - **`CartSidebar.jsx`**: Barra lateral que muestra el carrito
-- **`Checkout.jsx`**: Formulario y proceso de compra
+- **`ErrorScreen.jsx`**: Pantalla de error cúando no hay conexión
+- **`LoadingScreen.jsx`**: Pantalla de carga
+- **`ScrollToTop.jsx`**: "Flecita" que regresa hacía arriba para no tener que scrollear tanto
 
 #### **`contexts/`** - Gestión Global de Estado
 
