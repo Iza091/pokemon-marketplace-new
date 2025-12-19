@@ -23,6 +23,14 @@ Este es un marketplace de Pokémon construido con React que permite a los usuari
 
 ---
 
+# Para la parte de pago suguiero seguir con esto:
+
+Numero de cuenta: 1234 5678 9012 3456
+
+Fecha de vencimiento: MM/YY (importante usar "/")
+
+---
+
 ## Estructura de la Aplicación
 
 ### 📁 Carpetas Principales
